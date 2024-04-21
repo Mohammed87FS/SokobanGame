@@ -23,28 +23,32 @@ public sealed class InputHandler{
     public void Handle(ConsoleKeyInfo keyInfo)
     {
         GameObject focusedObject = engine.GetFocusedObject();
+        if (focusedObject == null) return;
 
-        if (focusedObject != null) {
-            // Handle keyboard input to move the player
-            switch (keyInfo.Key)
-            {
-                case ConsoleKey.UpArrow:
-                    focusedObject.Move(0, -1);
-                    break;
-                case ConsoleKey.DownArrow:
-                    focusedObject.Move(0, 1);
-                    break;
-                case ConsoleKey.LeftArrow:
-                    focusedObject.Move(-1, 0);
-                    break;
-                case ConsoleKey.RightArrow:
-                    focusedObject.Move(1, 0);
-                    break;
-                default:
-                    break;
-            }
+        // Proposed new positions based on key press
+        int newX = focusedObject.PosX;
+        int newY = focusedObject.PosY;
+
+        switch (keyInfo.Key)
+        {
+            case ConsoleKey.UpArrow:
+                newY--;
+                break;
+            case ConsoleKey.DownArrow:
+                newY++;
+                break;
+            case ConsoleKey.LeftArrow:
+                newX--;
+                break;
+            case ConsoleKey.RightArrow:
+                newX++;
+                break;
         }
-        
-    }
 
+        // Check if the new position is walkable before moving
+        if (engine.GetMap().IsPositionWalkable(newX, newY))
+        {
+            focusedObject.Move(newX - focusedObject.PosX, newY - focusedObject.PosY);
+        }
+    }
 }
