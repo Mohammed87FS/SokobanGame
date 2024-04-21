@@ -73,14 +73,23 @@ public class Map {
         }
     }
 
-      public bool IsPositionWalkable(int x, int y)
-    {
-        // Check map boundaries
-        if (x < 0 || y < 0 || x >= _mapWidth || y >= _mapHeight)
-            return false;
 
-        // Check if the position is occupied by a non-walkable object
-        GameObject gameObject = GameObjectLayer[x, y];
-        return gameObject == null || gameObject.Type == GameObjectType.Floor;
-    }
+public bool IsPositionWalkable(int x, int y)
+{
+    if (x < 0 || y < 0 || x >= _mapWidth || y >= _mapHeight)
+        return false;  
+
+    GameObject? gameObject = GetObjectAt(x, y);
+
+    return gameObject == null || gameObject.Type == GameObjectType.Floor; 
+}
+
+
+
+
+public GameObject GetObjectAt(int x, int y)
+{
+    return GameObjectLayer[x, y];
+}
+
 }

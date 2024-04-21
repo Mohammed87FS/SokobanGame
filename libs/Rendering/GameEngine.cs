@@ -27,6 +27,7 @@ public sealed class GameEngine
     }
 
     private GameObject? _focusedObject;
+   
 
     private Map map = new Map();
 
@@ -41,6 +42,8 @@ public sealed class GameEngine
         return _focusedObject;
     }
 
+
+ 
     public void Setup(){
 
         //Added for proper display of game characters
@@ -57,6 +60,7 @@ public sealed class GameEngine
         }
         
         _focusedObject = gameObjects.OfType<Player>().First();
+       
 
     }
 

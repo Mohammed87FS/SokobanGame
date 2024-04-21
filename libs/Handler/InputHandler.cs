@@ -16,39 +16,73 @@ public sealed class InputHandler{
     }
 
     private InputHandler() {
-        //INIT PROPS HERE IF NEEDED
+       
         engine = GameEngine.Instance;
     }
 
     public void Handle(ConsoleKeyInfo keyInfo)
+{
+    GameObject focusedObject = engine.GetFocusedObject();
+  
+    if (focusedObject == null) return;
+
+ 
+    int newX = focusedObject.PosX;
+    int newY = focusedObject.PosY;
+    
+    switch (keyInfo.Key)
     {
-        GameObject focusedObject = engine.GetFocusedObject();
-        if (focusedObject == null) return;
+        case ConsoleKey.UpArrow:
+            newY--;
+            break;
+        case ConsoleKey.DownArrow:
+            newY++;
+            break;
+        case ConsoleKey.LeftArrow:
+            newX--;
+            break;
+        case ConsoleKey.RightArrow:
+            newX++;
+            break;
+    }
 
-        // Proposed new positions based on key press
-        int newX = focusedObject.PosX;
-        int newY = focusedObject.PosY;
+    GameObject? objectAtNewPosition = engine.GetMap().GetObjectAt(newX, newY);
 
-        switch (keyInfo.Key)
+  
+    if (objectAtNewPosition != null && objectAtNewPosition.Type == GameObjectType.Box)
+    {
+      
+        int boxNewX = objectAtNewPosition.PosX + (newX - focusedObject.PosX);
+        int boxNewY = objectAtNewPosition.PosY + (newY - focusedObject.PosY);
+
+        
+        if (engine.GetMap().IsPositionWalkable(boxNewX, boxNewY))
         {
-            case ConsoleKey.UpArrow:
-                newY--;
-                break;
-            case ConsoleKey.DownArrow:
-                newY++;
-                break;
-            case ConsoleKey.LeftArrow:
-                newX--;
-                break;
-            case ConsoleKey.RightArrow:
-                newX++;
-                break;
-        }
+        
+            objectAtNewPosition.Move(boxNewX - objectAtNewPosition.PosX, boxNewY - objectAtNewPosition.PosY);
+            UpdateGameMap(objectAtNewPosition);
 
-        // Check if the new position is walkable before moving
-        if (engine.GetMap().IsPositionWalkable(newX, newY))
-        {
+            
             focusedObject.Move(newX - focusedObject.PosX, newY - focusedObject.PosY);
+            UpdateGameMap(focusedObject);
         }
     }
+    else if (engine.GetMap().IsPositionWalkable(newX, newY))
+    {
+      
+        focusedObject.Move(newX - focusedObject.PosX, newY - focusedObject.PosY);
+        UpdateGameMap(focusedObject);
+    }
 }
+
+private void UpdateGameMap(GameObject gameObject)
+{
+
+    engine.GetMap().Set(gameObject);
+    engine.Render();
+}
+
+
+
+}
+

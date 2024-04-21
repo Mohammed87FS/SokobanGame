@@ -3,8 +3,7 @@ namespace libs;
 public class Box : GameObject {
 
     public Box () : base(){
-        Type = GameObjectType.Player;
-        CharRepresentation = '○';
+        Type = GameObjectType.Box;
+        CharRepresentation = 'o';
         Color = ConsoleColor.DarkGreen;
-    }
-}
+    }}

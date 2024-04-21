@@ -23,7 +23,7 @@ public class GameObject : IGameObject, IMovement
 public GameObjectType Type { get; set; }
 
 
-    // Update constructors to set the type
+    
     public GameObject(int posX, int posY, ConsoleColor color, GameObjectType type)
     {
         _posX = posX;
