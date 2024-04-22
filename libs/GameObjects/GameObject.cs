@@ -1,3 +1,4 @@
+﻿
 ﻿namespace libs;
 
 public class GameObject : IGameObject, IMovement
@@ -11,27 +12,14 @@ public class GameObject : IGameObject, IMovement
     private int _prevPosX;
     private int _prevPosY;
 
-   
+    public GameObjectType Type;
 
+    
     public GameObject() {
         this._posX = 5;
         this._posY = 5;
         this._color = ConsoleColor.Gray;
     }
-
-
-public GameObjectType Type { get; set; }
-
-
-    
-    public GameObject(int posX, int posY, ConsoleColor color, GameObjectType type)
-    {
-        _posX = posX;
-        _posY = posY;
-        _color = color;
-        Type = type;
-    }
-
 
     public GameObject(int posX, int posY){
         this._posX = posX;
@@ -69,14 +57,28 @@ public GameObjectType Type { get; set; }
     }
 
     public int GetPrevPosY() {
+        if(_prevPosY == null || _prevPosY == 0){
+            return _posY;
+        }
         return _prevPosY;
     }
     
     public int GetPrevPosX() {
+         if(_prevPosX == null || _prevPosX == 0){
+            return _posX;
+        }
         return _prevPosX;
     }
+    public void SetPrevPosY(int value) {
+        _prevPosY = value;
+    }
 
-    public void Move(int dx, int dy) {
+    public void SetPrevPosX(int value) {
+        _prevPosX = value;
+    }
+  
+
+    public virtual void Move(int dx, int dy) {
         _prevPosX = _posX;
         _prevPosY = _posY;
         _posX += dx;

@@ -1,14 +1,12 @@
 namespace libs;
 
-public sealed class InputHandler{
-
+public sealed class InputHandler {
     private static InputHandler? _instance;
     private GameEngine engine;
 
     public static InputHandler Instance {
-        get{
-            if(_instance == null)
-            {
+        get {
+            if (_instance == null) {
                 _instance = new InputHandler();
             }
             return _instance;
@@ -16,73 +14,36 @@ public sealed class InputHandler{
     }
 
     private InputHandler() {
-       
         engine = GameEngine.Instance;
     }
 
-    public void Handle(ConsoleKeyInfo keyInfo)
-{
-    GameObject focusedObject = engine.GetFocusedObject();
-  
-    if (focusedObject == null) return;
+    public void Handle(ConsoleKeyInfo keyInfo) {
+        // Check game state before processing inputs
+        if (GameEngine.Instance.CurrentGameState == GameState.Won) {
+            Console.WriteLine("The game is won and no input will be processed.");
+            return;  // Early return if the game has already been won
+        }
 
- 
-    int newX = focusedObject.PosX;
-    int newY = focusedObject.PosY;
-    
-    switch (keyInfo.Key)
-    {
-        case ConsoleKey.UpArrow:
-            newY--;
-            break;
-        case ConsoleKey.DownArrow:
-            newY++;
-            break;
-        case ConsoleKey.LeftArrow:
-            newX--;
-            break;
-        case ConsoleKey.RightArrow:
-            newX++;
-            break;
-    }
+        // Retrieve the focused object only if the game state allows interaction
+        GameObject focusedObject = engine.GetFocusedObject();
 
-    GameObject? objectAtNewPosition = engine.GetMap().GetObjectAt(newX, newY);
-
-  
-    if (objectAtNewPosition != null && objectAtNewPosition.Type == GameObjectType.Box)
-    {
-      
-        int boxNewX = objectAtNewPosition.PosX + (newX - focusedObject.PosX);
-        int boxNewY = objectAtNewPosition.PosY + (newY - focusedObject.PosY);
-
-        
-        if (engine.GetMap().IsPositionWalkable(boxNewX, boxNewY))
-        {
-        
-            objectAtNewPosition.Move(boxNewX - objectAtNewPosition.PosX, boxNewY - objectAtNewPosition.PosY);
-            UpdateGameMap(objectAtNewPosition);
-
-            
-            focusedObject.Move(newX - focusedObject.PosX, newY - focusedObject.PosY);
-            UpdateGameMap(focusedObject);
+        if (focusedObject != null) {
+            switch (keyInfo.Key) {
+                case ConsoleKey.UpArrow:
+                    focusedObject.Move(0, -1);
+                    break;
+                case ConsoleKey.DownArrow:
+                    focusedObject.Move(0, 1);
+                    break;
+                case ConsoleKey.LeftArrow:
+                    focusedObject.Move(-1, 0);
+                    break;
+                case ConsoleKey.RightArrow:
+                    focusedObject.Move(1, 0);
+                    break;
+                default:
+                    break;
+            }
         }
     }
-    else if (engine.GetMap().IsPositionWalkable(newX, newY))
-    {
-      
-        focusedObject.Move(newX - focusedObject.PosX, newY - focusedObject.PosY);
-        UpdateGameMap(focusedObject);
-    }
 }
-
-private void UpdateGameMap(GameObject gameObject)
-{
-
-    engine.GetMap().Set(gameObject);
-    engine.Render();
-}
-
-
-
-}
-
