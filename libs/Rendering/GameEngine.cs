@@ -41,7 +41,7 @@ public sealed class GameEngine {
         map.MapWidth = gameData.map.width;
         map.MapHeight = gameData.map.height;
 
-        foreach (var gameObject in gameData.gameObjects) {
+        foreach (var gameObject in gameData.First.gameObjects) {
             AddGameObject(CreateGameObject(gameObject));
         }
         _focusedObject = gameObjects.OfType<Player>().First();
@@ -88,7 +88,7 @@ public sealed class GameEngine {
             CurrentGameState = GameState.Won;
          for(int i = 0; i < 30; i++) 
 {							
-  Console.WriteLine("Hi from eng check");	
+  Console.WriteLine("u won !!");	
 }	
         }
     }
