@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\moham\\Desktop\\Soko\\SokobanGame\\game\\game.csproj": {}
+    "C:\\Users\\moham\\Desktop\\Soko\\sokobangame\\game\\game.csproj": {}
   },
   "projects": {
-    "C:\\Users\\moham\\Desktop\\Soko\\SokobanGame\\game\\game.csproj": {
+    "C:\\Users\\moham\\Desktop\\Soko\\sokobangame\\game\\game.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\moham\\Desktop\\Soko\\SokobanGame\\game\\game.csproj",
+        "projectUniqueName": "C:\\Users\\moham\\Desktop\\Soko\\sokobangame\\game\\game.csproj",
         "projectName": "game",
-        "projectPath": "C:\\Users\\moham\\Desktop\\Soko\\SokobanGame\\game\\game.csproj",
+        "projectPath": "C:\\Users\\moham\\Desktop\\Soko\\sokobangame\\game\\game.csproj",
         "packagesPath": "C:\\Users\\moham\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\moham\\Desktop\\Soko\\SokobanGame\\game\\obj\\",
+        "outputPath": "C:\\Users\\moham\\Desktop\\Soko\\sokobangame\\game\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\moham\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -26,8 +26,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\moham\\Desktop\\Soko\\SokobanGame\\libs\\libs.csproj": {
-                "projectPath": "C:\\Users\\moham\\Desktop\\Soko\\SokobanGame\\libs\\libs.csproj"
+              "C:\\Users\\moham\\Desktop\\Soko\\sokobangame\\libs\\libs.csproj": {
+                "projectPath": "C:\\Users\\moham\\Desktop\\Soko\\sokobangame\\libs\\libs.csproj"
               }
             }
           }
@@ -66,14 +66,14 @@
         }
       }
     },
-    "C:\\Users\\moham\\Desktop\\Soko\\SokobanGame\\libs\\libs.csproj": {
+    "C:\\Users\\moham\\Desktop\\Soko\\sokobangame\\libs\\libs.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\moham\\Desktop\\Soko\\SokobanGame\\libs\\libs.csproj",
+        "projectUniqueName": "C:\\Users\\moham\\Desktop\\Soko\\sokobangame\\libs\\libs.csproj",
         "projectName": "libs",
-        "projectPath": "C:\\Users\\moham\\Desktop\\Soko\\SokobanGame\\libs\\libs.csproj",
+        "projectPath": "C:\\Users\\moham\\Desktop\\Soko\\sokobangame\\libs\\libs.csproj",
         "packagesPath": "C:\\Users\\moham\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\moham\\Desktop\\Soko\\SokobanGame\\libs\\obj\\",
+        "outputPath": "C:\\Users\\moham\\Desktop\\Soko\\sokobangame\\libs\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\moham\\AppData\\Roaming\\NuGet\\NuGet.Config"

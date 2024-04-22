@@ -1,13 +1,11 @@
-﻿using System.Reflection.Metadata.Ecma335;
-
-namespace libs;
-
+﻿using System;
 using Newtonsoft.Json;
 
 public static class FileHandler
 {
     private static string filePath;
-    private readonly static string envVar = "GAME_SETUP_PATH";
+    private static readonly string saveFilePath = "gameState.json";  // Path to save game states
+    private static readonly string envVar = "GAME_SETUP_PATH";
 
     static FileHandler()
     {
@@ -16,23 +14,15 @@ public static class FileHandler
 
     private static void Initialize()
     {
-        if(Environment.GetEnvironmentVariable(envVar) != null){
-            filePath = Environment.GetEnvironmentVariable(envVar);
-        };
+        filePath = Environment.GetEnvironmentVariable(envVar) ?? throw new InvalidOperationException("Environment variable for file path not set.");
     }
 
     public static dynamic ReadJson()
     {
-        if (string.IsNullOrEmpty(filePath))
-        {
-            throw new InvalidOperationException("JSON file path not provided in environment variable");
-        }
-
         try
         {
             string jsonContent = File.ReadAllText(filePath);
-            dynamic jsonData = JsonConvert.DeserializeObject(jsonContent);
-            return jsonData;
+            return JsonConvert.DeserializeObject<dynamic>(jsonContent);
         }
         catch (FileNotFoundException)
         {
@@ -41,6 +31,19 @@ public static class FileHandler
         catch (Exception ex)
         {
             throw new Exception($"Error reading JSON file: {ex.Message}");
+        }
+    }
+
+    public static void SaveJson(dynamic data)
+    {
+        try
+        {
+            string jsonContent = JsonConvert.SerializeObject(data, Formatting.Indented);
+            File.WriteAllText(saveFilePath, jsonContent);
+        }
+        catch (Exception ex)
+        {
+            throw new Exception($"Error writing JSON file: {ex.Message}");
         }
     }
 }

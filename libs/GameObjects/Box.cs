@@ -12,7 +12,7 @@ public class Box : GameObject
     {
         this.gameObjectFactory = GameEngine.Instance.gameObjectFactory as GameObjectFactory;
         this.targetsLeft = gameObjectFactory.AmountOfBoxes;
-        Type = GameObjectType.Box;  // Assuming this was a mistake earlier setting it to Player
+        Type = GameObjectType.Box; 
         CharRepresentation = '○';
         Color = ConsoleColor.DarkGreen;
     }
@@ -25,7 +25,7 @@ public class Box : GameObject
         GameObject? potentialTarget = map.Get(goToY, goToX);
 
 
-        // Check if the box is being moved onto a target
+        
         if (potentialTarget != null && potentialTarget.Type == GameObjectType.Target)
         {
 

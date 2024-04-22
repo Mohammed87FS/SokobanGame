@@ -18,13 +18,20 @@ public sealed class InputHandler {
     }
 
     public void Handle(ConsoleKeyInfo keyInfo) {
-        // Check game state before processing inputs
+       
         if (GameEngine.Instance.CurrentGameState == GameState.Won) {
-            Console.WriteLine("The game is won and no input will be processed.");
-            return;  // Early return if the game has already been won
+            Console.WriteLine("U won dont move.");
+            return;  
         }
 
-        // Retrieve the focused object only if the game state allows interaction
+       
+        if (keyInfo.Key == ConsoleKey.Escape) {
+            Console.WriteLine(" YO YO Saving and exiting game...");
+            GameEngine.Instance.SaveGameState(); 
+            Environment.Exit(0);
+        }
+
+     
         GameObject focusedObject = engine.GetFocusedObject();
 
         if (focusedObject != null) {
