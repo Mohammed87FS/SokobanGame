@@ -1,13 +1,15 @@
 namespace libs;
 
-public class Box : GameObject {
-    
+public class Box : GameObject
+{
+
     private GameObjectFactory gameObjectFactory;
     private int targetsLeft;
 
     public Map map = GameEngine.Instance.GetMap();
 
-    public Box() : base() {
+    public Box() : base()
+    {
         this.gameObjectFactory = GameEngine.Instance.gameObjectFactory as GameObjectFactory;
         this.targetsLeft = gameObjectFactory.AmountOfBoxes;
         Type = GameObjectType.Box;  // Assuming this was a mistake earlier setting it to Player
@@ -15,41 +17,43 @@ public class Box : GameObject {
         Color = ConsoleColor.DarkGreen;
     }
 
-  public override void Move(int dx, int dy) {
-    int goToX = PosX + dx;
-    int goToY = PosY + dy;
+    public override void Move(int dx, int dy)
+    {
+        int goToX = PosX + dx;
+        int goToY = PosY + dy;
 
-    GameObject? potentialTarget = map.Get(goToY, goToX);
-             
+        GameObject? potentialTarget = map.Get(goToY, goToX);
 
-    // Check if the box is being moved onto a target
-    if (potentialTarget != null && potentialTarget.Type == GameObjectType.Target) {
 
-        for(int i = 0; i < 3000; i++)   {							
-  Console.WriteLine(potentialTarget.Type+"uooooooooooooooooooooo");	
-}
+        // Check if the box is being moved onto a target
+        if (potentialTarget != null && potentialTarget.Type == GameObjectType.Target)
+        {
 
-        // Increment only if moving onto a target from a non-target position
-        if (map.Get(PosY, PosX).Type != GameObjectType.Target) {
-            gameObjectFactory.IncrementAmountOfBoxes();
-             for(int i = 0; i < 3000; i++) 
-{							
-  Console.WriteLine("Hi from inc");	
-}	
+            for (int i = 0; i < 300; i++)
+            {
+                Console.WriteLine(potentialTarget.Type + "uooooooooooooooooooooo");
+            }
+
+
+            if (map.Get(PosY, PosX).Type != GameObjectType.Target)
+            {
+                gameObjectFactory.IncrementAmountOfBoxes();
+          GameEngine.Instance.CheckWinCondition();
+
+            }
         }
-    } else {
-        // Decrement only if moving off a target to a non-target position
-        if (map.Get(PosY, PosX).Type == GameObjectType.Target) {
-            gameObjectFactory.DecrementAmountOfBoxes();
+        else
+        {
 
-             for(int i = 0; i < 3000; i++) 
-{							
-  Console.WriteLine("Hi from dec");	
-}	
+            if (map.Get(PosY, PosX).Type == GameObjectType.Target)
+            {
+                gameObjectFactory.DecrementAmountOfBoxes();
+
+
+            }
         }
+
+
+        base.Move(dx, dy);
     }
-
-    // Move the box
-    base.Move(dx, dy);
-}
 }

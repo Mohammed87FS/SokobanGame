@@ -84,9 +84,9 @@ public sealed class GameEngine {
     }
 
     public void CheckWinCondition() {
-        if (gameObjectFactory.AmountOfBoxes == 0) {
+        if (gameObjectFactory.AmountOfBoxes == 5) {
             CurrentGameState = GameState.Won;
-         for(int i = 0; i < 3000; i++) 
+         for(int i = 0; i < 30; i++) 
 {							
   Console.WriteLine("Hi from eng check");	
 }	
