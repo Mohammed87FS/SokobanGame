@@ -113,19 +113,26 @@ public sealed class GameEngine {
 
     public void CheckWinCondition()
         {
-            if (gameObjectFactory.AmountOfBoxes == 5) // Assuming 5 is the condition to win
+            if (gameObjectFactory.AmountOfBoxes == 5 && currentLevel ==1) // Assuming 5 is the condition to win
             {
-                if (currentLevel < 3) // If there are more levels to play
-                {
+                
                     currentLevel++;
-                    Setup(); // Setup next level
+                    Setup();
+                }
+                else if (gameObjectFactory.AmountOfBoxes == 10 && currentLevel ==2)
+                {
+               currentLevel++;
+                    Setup();
                 }
                 else
                 {
                     CurrentGameState = GameState.Won;
-                    Console.WriteLine("Congratulations! You've completed all levels!");
+                             for(int i = 0; i < 300; i++) 
+{							
+  Console.WriteLine("you won!!! :))) ");	
+}	
                 }
-            }
+            
         }
 
     private void DrawObject(GameObject gameObject) {

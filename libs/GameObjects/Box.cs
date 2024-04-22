@@ -29,10 +29,10 @@ public class Box : GameObject
         if (potentialTarget != null && potentialTarget.Type == GameObjectType.Target)
         {
 
-            for (int i = 0; i < 300; i++)
-            {
-                Console.WriteLine(potentialTarget.Type + "uooooooooooooooooooooo");
-            }
+            // for (int i = 0; i < 300; i++)
+            // {
+            //     Console.WriteLine(potentialTarget.Type + "uooooooooooooooooooooo");
+            // }
 
 
             if (map.Get(PosY, PosX).Type != GameObjectType.Target)
