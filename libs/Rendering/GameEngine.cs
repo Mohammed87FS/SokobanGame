@@ -27,6 +27,7 @@ public sealed class GameEngine {
     private List<GameObject> gameObjects = new List<GameObject>();
     private Map map = new Map();
 
+    private int currentLevel = 1;
     public Map GetMap() {
         return map;
     }
@@ -35,18 +36,45 @@ public sealed class GameEngine {
         return _focusedObject;
     }
 
-    public void Setup() {
-        Console.OutputEncoding = System.Text.Encoding.UTF8;
-        dynamic gameData = FileHandler.ReadJson();
-        map.MapWidth = gameData.map.width;
-        map.MapHeight = gameData.map.height;
 
-        foreach (var gameObject in gameData.First.gameObjects) {
-            AddGameObject(CreateGameObject(gameObject));
+        public void Setup()
+        {
+            Console.OutputEncoding = System.Text.Encoding.UTF8;
+            dynamic gameData = FileHandler.ReadJson();
+            map.MapWidth = gameData.map.width;
+            map.MapHeight = gameData.map.height;
+            gameObjects.Clear(); // Clear existing game objects
+
+            // Load objects based on the current level
+            dynamic objectsToLoad = gameData.First.gameObjects; // Default to first map
+            if (currentLevel == 2){
+                objectsToLoad = gameData.Second.gameObjects;
+                             for(int i = 0; i < 300; i++) 
+{							
+  Console.WriteLine("Hi from 2");	
+}	
+  
+            }
+                
+            else if (currentLevel == 3){
+                 objectsToLoad = gameData.Third.gameObjects;
+
+                              for(int i = 0; i < 300; i++) 
+{							
+  Console.WriteLine("Hi from 3");	
+}	
+  
+            }
+               
+
+            foreach (var gameObject in objectsToLoad)
+            {
+                AddGameObject(CreateGameObject(gameObject));
+            }
+
+            _focusedObject = gameObjects.OfType<Player>().First();
+            Render();
         }
-        _focusedObject = gameObjects.OfType<Player>().First();
-    }
-
     public void Render() {
         Console.Clear();
         map.Initialize();
@@ -83,15 +111,22 @@ public sealed class GameEngine {
         }
     }
 
-    public void CheckWinCondition() {
-        if (gameObjectFactory.AmountOfBoxes == 5) {
-            CurrentGameState = GameState.Won;
-         for(int i = 0; i < 30; i++) 
-{							
-  Console.WriteLine("u won !!");	
-}	
+    public void CheckWinCondition()
+        {
+            if (gameObjectFactory.AmountOfBoxes == 5) // Assuming 5 is the condition to win
+            {
+                if (currentLevel < 3) // If there are more levels to play
+                {
+                    currentLevel++;
+                    Setup(); // Setup next level
+                }
+                else
+                {
+                    CurrentGameState = GameState.Won;
+                    Console.WriteLine("Congratulations! You've completed all levels!");
+                }
+            }
         }
-    }
 
     private void DrawObject(GameObject gameObject) {
         Console.ResetColor();

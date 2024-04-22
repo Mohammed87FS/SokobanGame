@@ -36,10 +36,7 @@ public class GameObjectFactory : IGameObjectFactory {
         amountOfBoxes++;
         
 
-                 for(int i = 0; i < 300; i++) 
-{							
-  Console.WriteLine("increment"+ amountOfBoxes);	
-}	
+ 
     }
 
     public void DecrementAmountOfBoxes() {
