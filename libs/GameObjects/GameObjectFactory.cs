@@ -38,7 +38,9 @@ public class GameObjectFactory : IGameObjectFactory {
 
  
     }
-
+ public void ResetAmountOfBoxes() {
+        amountOfBoxes = 0;
+    }
     public void DecrementAmountOfBoxes() {
         if (amountOfBoxes > 0) {
             amountOfBoxes--;

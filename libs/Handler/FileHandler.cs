@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 public static class FileHandler
 {
     private static string filePath;
-    private static readonly string saveFilePath = "gameState.json";  // Path to save game states
+    private static readonly string saveFilePath = "gameState.json";  
     private static readonly string envVar = "GAME_SETUP_PATH";
 
     static FileHandler()

@@ -39,6 +39,8 @@ public class Box : GameObject
             {
                 gameObjectFactory.IncrementAmountOfBoxes();
           GameEngine.Instance.CheckWinCondition();
+        //   gameObjectFactory.ResetAmountOfBoxes();
+
 
             }
         }

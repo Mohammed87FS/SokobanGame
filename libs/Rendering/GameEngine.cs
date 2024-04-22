@@ -52,8 +52,8 @@ public sealed class GameEngine
         map.MapHeight = gameData.map.height;
         gameObjects.Clear();
 
-        
-        dynamic objectsToLoad = gameData.First.gameObjects; 
+
+        dynamic objectsToLoad = gameData.First.gameObjects;
         if (currentLevel == 2)
         {
             objectsToLoad = gameData.Second.gameObjects;
@@ -135,13 +135,22 @@ public sealed class GameEngine
         {
 
             currentLevel++;
+
             Setup();
+    
         }
         else if (gameObjectFactory.AmountOfBoxes == 10 && currentLevel == 2)
         {
+
+              for (int i = 0; i < 300; i++)
+            {
+                Console.WriteLine(gameObjectFactory.AmountOfBoxes);
+            }
             currentLevel++;
             Setup();
+            
         }
+       
         else
         {
             CurrentGameState = GameState.Won;
@@ -154,18 +163,18 @@ public sealed class GameEngine
     }
 
     public void SaveGameState()
-{
-    var gameState = new
     {
-        CurrentLevel = currentLevel,
-        PlayerPosition = new { _focusedObject.PosX, _focusedObject.PosY },
-        Boxes = gameObjects.Where(go => go.Type == GameObjectType.Box).Select(box => new { box.PosX, box.PosY }),
-        GameState = CurrentGameState.ToString()
-    };
+        var gameState = new
+        {
+            CurrentLevel = currentLevel,
+            PlayerPosition = new { _focusedObject.PosX, _focusedObject.PosY },
+            Boxes = gameObjects.Where(go => go.Type == GameObjectType.Box).Select(box => new { box.PosX, box.PosY }),
+            GameState = CurrentGameState.ToString()
+        };
 
-    FileHandler.SaveJson(gameState);
-    Console.WriteLine("Game state saved!");
-}
+        FileHandler.SaveJson(gameState);
+        Console.WriteLine("Game state saved!");
+    }
 
 
     private void DrawObject(GameObject gameObject)
